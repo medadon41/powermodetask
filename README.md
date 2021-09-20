@@ -1,1 +1,3 @@
-# powermodetask
+# POWERMODE
+***
+Feel the administrator power
