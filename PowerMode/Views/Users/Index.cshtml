@@ -1,0 +1,92 @@
+﻿@model IEnumerable<PowerMode.Areas.Identity.Data.PowerUser>
+@{
+    ViewData["Title"] = "Users table";
+}
+
+<form method="post">
+<div class="text-center">
+    <h1>@ViewData["Title"]</h1>
+    <button type="submit" class="btn btn-dark" asp-controller="Users" asp-action="Block">
+        <svg class="bi bi-lock " width="32px" height="32px" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M11.5 8h-7a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1zm-7-1a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-7zm0-3a3.5 3.5 0 1 1 7 0v3h-1V4a2.5 2.5 0 0 0-5 0v3h-1V4z"/></svg>
+    </button>
+    <button type="submit" class="btn btn-light" asp-controller="Users" asp-action="Unblock">
+        <svg class="bi bi-unlock" width="32px" height="32px" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M9.655 8H2.333c-.264 0-.398.068-.471.121a.73.73 0 0 0-.224.296 1.626 1.626 0 0 0-.138.59V14c0 .342.076.531.14.635.064.106.151.18.256.237a1.122 1.122 0 0 0 .436.127l.013.001h7.322c.264 0 .398-.068.471-.121a.73.73 0 0 0 .224-.296 1.627 1.627 0 0 0 .138-.59V9c0-.342-.076-.531-.14-.635a.658.658 0 0 0-.255-.237A1.122 1.122 0 0 0 9.655 8zm.012-1H2.333C.5 7 .5 9 .5 9v5c0 2 1.833 2 1.833 2h7.334c1.833 0 1.833-2 1.833-2V9c0-2-1.833-2-1.833-2zM8.5 4a3.5 3.5 0 1 1 7 0v3h-1V4a2.5 2.5 0 0 0-5 0v3h-1V4z"/></svg>
+	</button>
+    <button type="submit" class="btn btn-danger" asp-controller="Users" asp-action="Delete">
+        <svg class="bi bi-trash" width="32px" height="32px" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/></svg>
+	</button>
+
+    <table class="table table-stripped" id="users">
+        <thead class="thead-dark">
+            <tr>
+                <th>
+                    <input type="checkbox" id="main-check" onchange="toggleChecks(this)"/>
+			    </th>   
+                <th>
+                    @Html.DisplayNameFor(model => model.Id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Social)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.RegDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LastSeen)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.isBlocked)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model) {
+            <tr>
+                <th>
+                    <input type="checkbox" class="select-check" name="ids" id="item" value="@item.Id"/>
+			    </th>
+                <th>
+                    @Html.DisplayFor(modelItem => item.Id)
+             </th>
+                <th>
+                    @Html.DisplayFor(modelItem => item.Social)
+                </th>
+                <th>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </th>
+                <th>
+                    @Html.DisplayFor(modelItem => item.RegDate)
+                </th>
+                <th>
+                    @Html.DisplayFor(modelItem => item.LastSeen)
+                </th>
+                <th>
+                    @Html.DisplayFor(modelItem => item.isBlocked)
+                </th>
+            </tr>
+    }
+        </tbody>
+    </table>
+</div>
+</form>
+<script src="~/lib/tablefilter/dist/tablefilter/tablefilter.js"></script>
+<script src='~/lib/tablesort/src/tablesort.js'></script>
+<script src='~/lib/tablesort/src/sorts/tablesort.number.js'></script>
+<script src='~/lib/tablesort/src/sorts/tablesort.date.js'></script>
+<script>
+    new Tablesort(document.getElementById('users'));
+</script>
+<script>
+    new TableFilter(document.getElementById('users'), {
+    col_0: 'none',
+    col_1: 'none',
+    col_2: 'select',
+    col_3: 'none',
+    col_4: 'none',
+    col_5: 'none',
+    col_6: 'select',
+}).init();
+</script>
